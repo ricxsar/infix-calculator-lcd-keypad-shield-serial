@@ -20,6 +20,7 @@
 // include some external libraries' headers.
 #include <Streaming.h>
 #include <StackList.h>
+#include<math.h>
 
 // include some calculator libraries' headers.
 #include "evaluate_postfix.h"
@@ -106,6 +107,22 @@ evaluate_postfix (String & postfix, double & result) {
 
           case '!':
             stack.push (!vargs[0]);
+            break;
+
+          case '~':
+            stack.push ( (double)(~(int)vargs[0]) );
+            break;
+
+          case '&':
+            stack.push ( (double)( (int)vargs[1] & (int)vargs[0]) );
+            break;
+
+          case '^':
+            stack.push ( (double)( (int)vargs[1] ^ (int)vargs[0]) );
+            break;
+
+          case '|':
+            stack.push ( (double)( (int)vargs[1] | (int)vargs[0]) );
             break;
         }
 

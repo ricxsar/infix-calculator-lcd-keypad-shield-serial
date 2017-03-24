@@ -30,7 +30,6 @@
  */
 
 // include some external libraries' headers.
-#include <LCD4Bit_mod.h>
 #include <Streaming.h>
 #include <StackList.h>
 
@@ -46,25 +45,12 @@ const int SCROLL_TIME = 500;    // the scrolling delay time.
 const int EXPR_MAX_SIZE = 80;   // the maximum expression size in chars.
 const int RESULT_MAX_SIZE = 64; // the maximum result size in chars.
 const int RESULT_PRECISION = 8; // the result's fractional part precision.
-const int LCD_MAX_LINES = 2;    // the number of LCD's lines.
-
-// the object to manage the LCD.
-LCD4Bit_mod lcd = LCD4Bit_mod (LCD_MAX_LINES);
 
 // startup point entry (runs once).
 void
 setup () {
   // set serial data rate.
   Serial.begin (SERIAL_BAUD);
-
-  // initialize the LCD.
-  lcd.init ();
-
-  // clear the LCD.
-  lcd.clear ();
-
-  // print the title message.
-  lcd.printIn ("Infix Calculator V1.0, (GNU/GPL V3)");
 
   // delay some time before scrolling.
   delay (DELAY_TIME);
@@ -96,19 +82,10 @@ loop () {
         // print the result to the serial.
         Serial << "Result is: " << value << endl;
 
-        // clear the second line.
-        lcd.clearLine (2);
-
-        // print the result.
-        lcd.printIn ("Result ~ ");
-        lcd.printIn (value);
-
         // delay some time before scrolling.
         delay (DELAY_TIME);
       }
     }
   }
 
-  // scrolling the LCD data.
-  lcd.leftScroll (1, SCROLL_TIME);
 }

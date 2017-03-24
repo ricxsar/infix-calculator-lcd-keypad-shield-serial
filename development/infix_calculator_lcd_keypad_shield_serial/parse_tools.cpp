@@ -30,15 +30,27 @@ int
 op_precedence (const char c) {
   switch (c) {
     case '!':
-      return 4;
+    case '~':
+      return 7;
 
     case '*':
     case '/':
-      return 3;
+    case '%':
+      return 6;
 
     case '+':
     case '-':
+      return 5;
+
+    case '&':
+      return 4;
+
+    case '^':
+      return 3;
+
+    case '|':
       return 2;
+
   }
 
   return 0;
@@ -54,15 +66,23 @@ bool
 op_left_associative (const char c) {
   switch (c) {
     case '!':
+    case '~':
       return false;
 
     case '*':
-    case '/':
+    case '/':    
+    case '%':
       return true;
 
     case '+':
     case '-':
       return true;
+
+    case '&':
+    case '^':
+    case '|':
+      return true;
+
   }
 
   return false;
@@ -73,12 +93,20 @@ bool
 is_operator (const char c) {
   switch (c) {
     case '!':
+    
+    case '~':
 
     case '/':
     case '*':
 
     case '+':
     case '-':
+
+    case '&':
+
+    case '^':
+
+    case '|':
       return true;
   }
 
@@ -102,9 +130,13 @@ op_operands_count (const char c) {
     case '/':
     case '+':
     case '-':
+    case '&':
+    case '^':
+    case '|':  
       return 2;
 
     case '!':
+    case '~':
       return 1;
   }
 
